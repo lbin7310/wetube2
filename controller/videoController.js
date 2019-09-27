@@ -1,13 +1,12 @@
-import { videos } from '../db';
 import routes from "../routes";
 
 export const home = (req, res) => {
-  res.render("home", {pageTitle: "Home", videos });
+  res.render("home", {pageTitle: "Home" });
 }
 
 export const search = (req, res) => {
   const { query: { term: searchingBy } } = req;
-  res.render("search", {pageTitle: "Search" , searchingBy, videos});
+  res.render("search", {pageTitle: "Search" , searchingBy});
 }
 
 export const getUpload = (req, res) => {

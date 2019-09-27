@@ -5,7 +5,6 @@ export const getJoin = (req, res) => {
  }
 
 export const postJoin = (req, res) => {
-  console.log(req.body);
   const {body: {name, email, password, password2} } = req;
   if (password !== password2) {
     res.status(400);

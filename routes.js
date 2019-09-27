@@ -32,7 +32,6 @@ const routes = {
       console.log(id);
       return USERS + `/${id}`;
     } else {
-      console.log("Detail")
       return USER_DETAIL;
     }
   },
