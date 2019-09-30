@@ -29,7 +29,6 @@ const routes = {
   users: USERS,
   userDetail: id => {
     if (id) {
-      console.log(id);
       return USERS + `/${id}`;
     } else {
       return USER_DETAIL;
