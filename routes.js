@@ -30,9 +30,9 @@ const routes = {
   userDetail: id => {
     if (id) {
       return USERS + `/${id}`;
-    } else {
+    } 
       return USER_DETAIL;
-    }
+    
   },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
@@ -42,24 +42,24 @@ const routes = {
     console.log(id, 'Video Detail');
     if (id) {
       return `/videos/${id}`;
-    } else {
+    } 
       return VIDEO_DETAIL;
-    }
+    
   },
   editVideo: id => {
     if (id) {
       return `/videos/${id}/edit`;
-    } else {
+    } 
       return EDIT_VIDEO;
-    }
+    
   },
   deleteVideo: id => {
     if (id) {
       return VIDEOS + `/${id}/delete`;
-    } else {
+    } 
       return DELETE_VIDEO;
-    }
-  },
+    
+  }
 };
 
 export default routes;
