@@ -9,7 +9,7 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   }
-})
+});
 
 const model = mongoose.model("Comment", CommentSchema);
 export default model;
