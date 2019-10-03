@@ -29,36 +29,32 @@ const routes = {
   users: USERS,
   userDetail: id => {
     if (id) {
-      return USERS + `/${id}`;
-    } 
-      return USER_DETAIL;
-    
+      return `${USERS}/${id}`;
+    }
+    return USER_DETAIL;
   },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
   videos: VIDEOS,
   upload: UPLOAD,
   videoDetail: id => {
-    console.log(id, 'Video Detail');
+    console.log(id, "Video Detail");
     if (id) {
       return `/videos/${id}`;
-    } 
-      return VIDEO_DETAIL;
-    
+    }
+    return VIDEO_DETAIL;
   },
   editVideo: id => {
     if (id) {
       return `/videos/${id}/edit`;
-    } 
-      return EDIT_VIDEO;
-    
+    }
+    return EDIT_VIDEO;
   },
   deleteVideo: id => {
     if (id) {
-      return VIDEOS + `/${id}/delete`;
-    } 
-      return DELETE_VIDEO;
-    
+      return `${VIDEOS}/${id}/delete`;
+    }
+    return DELETE_VIDEO;
   }
 };
 
