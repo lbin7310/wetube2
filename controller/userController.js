@@ -20,7 +20,6 @@ export const postJoin = async (req, res, next) => {
         name,
         email
       });
-      console.log(user);
       await User.register(user, password);
       next();
     } catch (error) {
