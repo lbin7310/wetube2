@@ -422,9 +422,9 @@ input[type="submit"] {
   .social-login .social-login--github {
     background-color: #444444;
     color: white; }
-  .social-login .social-login--facebook {
-    background-color: #3c5a99;
-    color: white; }
+  .social-login .social-login--kakao {
+    background-color: #f1c40f;
+    color: #3c1e1e; }
 
 .videoBlock video {
   max-width: 100%;
