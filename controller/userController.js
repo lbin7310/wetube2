@@ -31,7 +31,6 @@ export const postJoin = async (req, res, next) => {
 };
 
 export const getLogin = (req, res) => {
-  console.log("get Login");
   res.render("login", { pageTitle: "Log In" });
 };
 
@@ -73,8 +72,12 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+export const getMe = async (req, res) => {
+  const {
+    user: { id }
+  } = req;
+  const user = await User.findById(id).populate("videos");
+  res.render("userDetail", { pageTitle: "User Detail", user });
 };
 
 // Kakao Login
@@ -112,12 +115,14 @@ export const postKakaoLogin = (req, res) => {
   res.redirect(routes.home);
 };
 
+// User Detail
 export const userDetail = async (req, res) => {
   const {
     params: { id }
   } = req;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);
