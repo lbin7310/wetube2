@@ -6,6 +6,7 @@
 		}
 	}
 	video {
+		width: 100%;
 		max-width: 100%;
 	}
 	.videoPlayer__controls {
@@ -23,7 +24,20 @@
 		font-size: 18px;
 		.videoPlayer__column:first-child {
 			display: flex;
-			align-self: center;
+			align-items: center;
+			#jsVolumeBtn {
+				margin-right: 10px;
+			}
+			.videoPlayer__volume {
+				position: absolute;
+				padding: 0;
+				opacity: 1;
+				top: -60px;
+				left: -25px;
+				transform: rotate(-90deg);
+				z-index: 10;
+				width: 80px;
+			}
 			span:first-child {
 				margin-right: 10px;
 			}
