@@ -7,6 +7,13 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
 
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+  fetch(`/api/${videoId}/view`, {
+    method: "POST"
+  });
+};
+
 function handlePlayClick() {
   if (videoPlayer.paused) {
     videoPlayer.play();
@@ -82,11 +89,13 @@ function getCurrnetTime() {
 
 function setTotalTime() {
   const totalTimeString = formatData(videoPlayer.duration);
+  console.log(videoPlayer.duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrnetTime, 1000);
 }
 
 function handleEnd() {
+  registerView();
   videoPlayer.currentTime = 0;
   playBtn.innerHTML = `<i class="fas fa-play"></i>`;
 }
@@ -96,7 +105,6 @@ function handleDrag(event) {
     target: { value }
   } = event;
   videoPlayer.volume = value;
-  console.log(videoPlayer.volume);
   if (value >= 0.6) {
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
   } else if (value >= 0.2) {
@@ -107,7 +115,6 @@ function handleDrag(event) {
 }
 
 function init() {
-  videoPlayer.volume = 0.5;
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScrnBtn.addEventListener("click", goFullScreen);
@@ -115,7 +122,7 @@ function init() {
   videoPlayer.addEventListener("ended", handleEnd);
   volumeRange.addEventListener("input", handleDrag);
 }
-console.log(videoContainer);
+
 if (videoContainer) {
   init();
 }
