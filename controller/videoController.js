@@ -37,8 +37,9 @@ export const getUpload = (req, res) => {
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path: fileUrl }
+    file: { location: fileUrl }
   } = req;
+  console.log(req.file);
   const newVideo = await Video.create({
     fileUrl,
     title,
@@ -71,8 +72,8 @@ export const getEditVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id);
-    if (video.creator !== req.user.id) {
+    const video = await Video.findById(id).populate("creator");
+    if (video.creator.id !== req.user.id) {
       throw Error();
     } else {
       res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
@@ -99,9 +100,9 @@ export const deleteVideo = async (req, res) => {
   const {
     params: { id }
   } = req;
-  const video = await Video.findById(id);
+  const video = await Video.findById(id).populate("creator");
   try {
-    if (video.creator !== req.user.id) {
+    if (video.creator.id !== req.user.id) {
       throw Error();
     } else {
       await Video.findOneAndRemove(id);
@@ -138,7 +139,6 @@ export const postAddComment = async (req, res) => {
     params: { id },
     user
   } = req;
-  console.log(comment);
   try {
     const newComment = await Comment.create({
       text: comment,
