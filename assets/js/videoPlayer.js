@@ -89,15 +89,14 @@ function getCurrnetTime() {
 
 function setTotalTime() {
   const totalTimeString = formatData(videoPlayer.duration);
-  console.log(videoPlayer.duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrnetTime, 1000);
 }
 
 function handleEnd() {
-  registerView();
   videoPlayer.currentTime = 0;
   playBtn.innerHTML = `<i class="fas fa-play"></i>`;
+  registerView();
 }
 
 function handleDrag(event) {
