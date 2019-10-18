@@ -43,10 +43,7 @@ export const postLogin = passport.authenticate("local", {
 });
 
 // Github Login
-export const githubLogin = passport.authenticate("github", {
-  successFlash: "Welcome",
-  failureFlash: "Can't log in. Check email and/or password"
-});
+export const githubLogin = passport.authenticate("github");
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url: avatarUrl, name, email }
@@ -70,6 +67,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   }
 };
 export const postGithubLogIn = (req, res) => {
+  req.flash("success", "Welcome");
   res.redirect(routes.home);
 };
 
@@ -88,10 +86,7 @@ export const getMe = async (req, res) => {
 };
 
 // Kakao Login
-export const kakaoLogin = passport.authenticate("kakao", {
-  successFlash: "Welcome",
-  failureFlash: "Can't log in. Check email and/or password"
-});
+export const kakaoLogin = passport.authenticate("kakao");
 
 export const kakaoLoginCallback = async (_, __, profile, cb) => {
   const { _raw } = profile;
@@ -122,6 +117,7 @@ export const kakaoLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postKakaoLogin = (req, res) => {
+  req.flash("success", "Welcome");
   res.redirect(routes.home);
 };
 

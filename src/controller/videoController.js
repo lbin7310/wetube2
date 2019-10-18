@@ -5,7 +5,9 @@ import Comment from "../models/Comment";
 // Home
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ _id: -1 });
+    const videos = await Video.find({})
+      .sort({ createAt: -1 })
+      .exec();
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -22,7 +24,9 @@ export const search = async (req, res) => {
   try {
     videos = await Video.find({
       title: { $regex: searchingBy, $options: "i" }
-    });
+    })
+      .sort({ createAt: -1 })
+      .exec();
   } catch (error) {
     console.log(error);
   }
@@ -39,7 +43,6 @@ export const postUpload = async (req, res) => {
     body: { title, description },
     file: { location: fileUrl }
   } = req;
-  console.log(req.file);
   const newVideo = await Video.create({
     fileUrl,
     title,
@@ -48,6 +51,7 @@ export const postUpload = async (req, res) => {
   });
   req.user.videos.push(newVideo.id);
   req.user.save();
+  req.flash("success", "Video Uploaded!");
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -57,6 +61,7 @@ export const videoDetail = async (req, res) => {
     const {
       params: { id }
     } = req;
+    console.log(id);
     const video = await Video.findById(id)
       .populate("creator")
       .populate("comments");
@@ -105,11 +110,14 @@ export const deleteVideo = async (req, res) => {
     if (video.creator.id !== req.user.id) {
       throw Error();
     } else {
-      await Video.findOneAndRemove(id);
+      await Video.find({ _id: id })
+        .remove()
+        .exec();
     }
   } catch (error) {
     console.log(error);
   }
+  req.flash("info", "Video Deleted!");
   res.redirect(routes.home);
 };
 
