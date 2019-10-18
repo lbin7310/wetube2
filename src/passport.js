@@ -8,7 +8,9 @@ import {
 } from "./controller/userController";
 import routes from "./routes";
 
-// const GS = GithubStrategy.Strategy;
+const url = process.env.PRODUCTION
+  ? "https://safe-cove-86982.herokuapp.com"
+  : "http://localhost:4000";
 
 passport.use(User.createStrategy());
 
@@ -17,7 +19,7 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `http://localhost:4000${routes.githubCallback}`
+      callbackURL: `${url}${routes.githubCallback}`
     },
     githubLoginCallback
   )
@@ -27,7 +29,7 @@ passport.use(
   new KakaoStrategy(
     {
       clientID: process.env.KAKAO_ID,
-      callbackURL: `http://localhost:4000${routes.kakaoCallback}`
+      callbackURL: `${url}${routes.kakaoCallback}`
     },
     kakaoLoginCallback
   )
