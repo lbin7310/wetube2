@@ -8,6 +8,7 @@ import session from "express-session";
 import path from "path";
 import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
+import flash from "express-flash";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
@@ -37,6 +38,7 @@ app.use(
     store: new CookieStore({ mongooseConnection: mongoose.connection })
   })
 );
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
